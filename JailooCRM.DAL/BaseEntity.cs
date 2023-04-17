@@ -1,6 +1,6 @@
 ﻿namespace JailooCRM.DAL
 {
-    public class BaseEntity<TKey>
+    public abstract class BaseEntity<TKey>
     {
         public TKey Id { get; set; }
         public bool IsDeleted { get; set; }
