@@ -3,6 +3,6 @@
     public class Waiter : Person
     {
         public List<Order> Orders { get; set; }
-        public decimal ServicePrice { get; set; }
+        public decimal ServicePercent { get; set; }
     }
 }
