@@ -1,4 +1,6 @@
-﻿namespace JailooCRM.DAL
+﻿using JailooCRM.DAL.Common;
+
+namespace JailooCRM.DAL
 {
     public class Product : BaseEntity<int>
     {
@@ -30,9 +32,9 @@
 
         public TypeOfPortion TypeOfPortion { get; set; }
 
-        public int SubcategoryId { get; set; }
+        public int? SubcategoryId { get; set; }
         public Subcategory Subcategory { get; set; }
-        public int DepartmentId { get; set; }
+        public int? DepartmentId { get; set; }
         public Department Department { get; set; }
         
         

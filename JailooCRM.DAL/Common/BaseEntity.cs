@@ -1,4 +1,4 @@
-﻿namespace JailooCRM.DAL
+﻿namespace JailooCRM.DAL.Common
 {
     public abstract class BaseEntity<TKey>
     {

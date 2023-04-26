@@ -1,4 +1,6 @@
-﻿namespace JailooCRM.DAL
+﻿using JailooCRM.DAL.Common;
+
+namespace JailooCRM.DAL
 {
     public class PersonBankAccount
     {

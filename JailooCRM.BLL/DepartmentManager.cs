@@ -1,6 +1,6 @@
 ﻿namespace JailooCRM.BLL
 {
-    public class Class1
+    public class DepartmentManager
     {
 
     }

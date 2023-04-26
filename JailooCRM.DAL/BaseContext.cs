@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata;
 
 namespace JailooCRM.DAL
 {
@@ -32,6 +33,26 @@ namespace JailooCRM.DAL
                 .WithMany(b => b.PersonBankAccounts)
                 .HasForeignKey(ba => ba.BankAccountId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Client>()
+                .HasOne(e => e.LoyalityItem)
+                .WithOne(e => e.Client)
+                .HasForeignKey<LoyalityItem>(e => e.ClientId)
+                .IsRequired();
+
+            modelBuilder.Entity<PersonBankAccount>()
+                .HasKey(pba => new { pba.PersonId, pba.BankAccountId });
+
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.Waiter)
+                .WithMany(w => w.Orders)
+                .HasForeignKey(o => o.WaiterId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Waiter>()
+                .HasMany(w => w.Orders)
+                .WithOne(o => o.Waiter)
+                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }
