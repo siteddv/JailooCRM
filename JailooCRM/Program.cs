@@ -1,7 +1,11 @@
+using JailooCRM.DAL;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddDbContext<PgContext>();
+builder.Services.AddTransient<IRepository<Department, int>, Repository<Department, int>>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
