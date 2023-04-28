@@ -29,5 +29,13 @@ namespace JailooCRM.Controllers
             })
             .ToArray();
         }
+
+        [HttpPost(Name = "Exception")]
+        public void Post()
+        {
+            int a = 5;
+            int b = 0;
+            int c = a / b;
+        }
     }
 }
