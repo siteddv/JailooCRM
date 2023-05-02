@@ -24,7 +24,6 @@ namespace JailooCRM
                                 contextFeature.Error.Message,
                                 false)
                             .ToString());
-
                     }
                 });
             });

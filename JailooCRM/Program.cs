@@ -1,5 +1,8 @@
 using JailooCRM;
 using JailooCRM.DAL;
+using Microsoft.AspNetCore.Diagnostics;
+using System.Globalization;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,5 +32,20 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.Use(async (context, next) =>
+{
+    context.Response.ContentType = "application/json";
+
+    await context.Response
+        .WriteAsync(new Response(
+            context.Response.StatusCode,
+            "poshel nahui",
+            false)
+        .ToString());
+    return;
+
+    await next();
+});
 
 app.Run();
