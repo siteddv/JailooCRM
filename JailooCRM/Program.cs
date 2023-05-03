@@ -33,19 +33,19 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Use(async (context, next) =>
-{
-    context.Response.ContentType = "application/json";
+//app.Use(async (context, next) =>
+//{
+//    context.Response.ContentType = "application/json";
 
-    await context.Response
-        .WriteAsync(new Response(
-            context.Response.StatusCode,
-            "poshel nahui",
-            false)
-        .ToString());
-    return;
+//    await context.Response
+//        .WriteAsync(new Response(
+//            context.Response.StatusCode,
+//            "poshel nahui",
+//            false)
+//        .ToString());
+//    return;
 
-    await next();
-});
+//    await next();
+//});
 
 app.Run();

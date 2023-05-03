@@ -21,6 +21,8 @@ namespace JailooCRM.DAL
 
         public async Task<T> AddAsync(T item)
         {
+            item.DateTimeAdded = DateTime.UtcNow;
+            item.DateTimeUpdated = DateTime.UtcNow;
             EntityEntry<T> entity = await _dbSet.AddAsync(item);
             T result = entity.Entity;
 
@@ -46,33 +48,18 @@ namespace JailooCRM.DAL
 
         public void Delete(T item)
         {
-            DbSet<T> dbSet = _context.Set<T>();
-
-            if (dbSet == default(DbSet<T>))
-                return;
-
-            dbSet.Remove(item);
+            _dbSet.Remove(item);
             _context.SaveChanges();
         }
 
         public List<T> GetAll()
         {
-            DbSet<T> dbSet = _context.Set<T>();
-
-            if (dbSet == default(DbSet<T>))
-                return default(List<T>);
-
-            return dbSet.ToList();
+            return _dbSet.ToList();
         }
 
         public T GetById(TKey id)
         {
-            DbSet<T> dbSet = _context.Set<T>();
-
-            if (dbSet == default(DbSet<T>))
-                return default(T);
-
-            T item = dbSet
+            T item = _dbSet
                 .FirstOrDefault(obj => obj.Id.Equals(id));
 
             return item;
@@ -85,12 +72,9 @@ namespace JailooCRM.DAL
 
         public void Update(T item)
         {
-            DbSet<T> dbSet = _context.Set<T>();
+            item.DateTimeUpdated = DateTime.UtcNow;
 
-            if (dbSet == default(DbSet<T>))
-                return;
-
-            dbSet.Update(item);
+            _dbSet.Update(item);
 
             _context.SaveChanges();
         }

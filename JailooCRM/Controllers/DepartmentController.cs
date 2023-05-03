@@ -1,4 +1,5 @@
 ﻿using JailooCRM.DAL;
+using JailooCRM.DAL.Response;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JailooCRM.Controllers
