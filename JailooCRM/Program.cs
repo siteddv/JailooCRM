@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<PgContext>();
 builder.Services.AddTransient<IRepository<Department, int>, Repository<Department, int>>();
+builder.Services.AddTransient<IRepository<Subcategory, int>, Repository<Subcategory, int>>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

@@ -37,6 +37,8 @@ namespace JailooCRM.DAL
 
             foreach(T item in items)
             {
+                item.DateTimeAdded = DateTime.UtcNow;
+                item.DateTimeUpdated = DateTime.UtcNow;
                 EntityEntry<T> entityEntry = await _dbSet.AddAsync(item);
                 T entity = entityEntry.Entity;
                 result.Add(entity);

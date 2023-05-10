@@ -16,7 +16,7 @@ namespace JailooCRM.Controllers
         }
 
         [HttpPost]
-        [Route("/create")]
+        [Route("create")]
         public async Task<DepartmentResponse> CreateDepartment([FromBody] string depName)
         {
             Department department = new Department()
