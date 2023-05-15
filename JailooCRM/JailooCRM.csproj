@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\JailooCRM.BLL\JailooCRM.BLL.csproj" />
     <ProjectReference Include="..\JailooCRM.DAL\JailooCRM.DAL.csproj" />
   </ItemGroup>
 

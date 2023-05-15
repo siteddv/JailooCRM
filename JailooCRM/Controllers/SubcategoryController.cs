@@ -1,4 +1,5 @@
 ﻿using JailooCRM.DAL;
+using JailooCRM.DAL.Request;
 using JailooCRM.DAL.Response;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +18,7 @@ namespace JailooCRM.Controllers
 
         [HttpPost]
         [Route("create")]
-        public async Task<SubcategoryResponse> CreateSubcategory(CreateSubcategoryRequest request)
+        public async Task<SubcategoryResponse> Create(CreateSubcategoryRequest request)
         {
             Subcategory subcategory = new Subcategory()
             {
@@ -30,5 +31,16 @@ namespace JailooCRM.Controllers
             
             return new SubcategoryResponse(subcategory, 200, null, true);
         }
+
+        [HttpDelete]
+        [Route("deleteById")]
+        public async Task<Response> Delete(int id)
+        {
+            _repository.DeleteById(id);
+
+            return new Response(200, null, true);
+        }
+
+
     }
 }

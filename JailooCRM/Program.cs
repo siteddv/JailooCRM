@@ -1,8 +1,6 @@
 using JailooCRM;
+using JailooCRM.BLL;
 using JailooCRM.DAL;
-using Microsoft.AspNetCore.Diagnostics;
-using System.Globalization;
-using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<PgContext>();
 builder.Services.AddTransient<IRepository<Department, int>, Repository<Department, int>>();
 builder.Services.AddTransient<IRepository<Subcategory, int>, Repository<Subcategory, int>>();
+builder.Services.AddTransient<DepartmentService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

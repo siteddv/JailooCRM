@@ -2,6 +2,9 @@
 
 namespace JailooCRM.DAL
 {
+    /// <summary>
+    /// Part of <see cref="DAL.Department"/>. For example, kitchen consists of kyrgyz cusine, chinese cousine and so on
+    /// </summary>
     public class Subcategory : BaseEntity<int>
     {
         public string Name { get; set; }

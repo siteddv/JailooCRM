@@ -10,5 +10,6 @@ namespace JailooCRM.DAL
         public T GetById(TKey id); // R
         public void Update(T item); // U
         public void Delete(T item); // D
+        public void DeleteById(TKey id); // D
     }
 }

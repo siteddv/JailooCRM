@@ -1,6 +1,6 @@
 ﻿using JailooCRM.DAL.Common;
 
-namespace JailooCRM.DAL
+namespace JailooCRM.DAL.Request
 {
     public class CreateSubcategoryRequest
     {

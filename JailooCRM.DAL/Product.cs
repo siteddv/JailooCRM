@@ -2,6 +2,9 @@
 
 namespace JailooCRM.DAL
 {
+    /// <summary>
+    /// Any item to sell
+    /// </summary>
     public class Product : BaseEntity<int>
     {
         public string Name { get; set; }

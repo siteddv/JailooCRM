@@ -53,6 +53,11 @@ namespace JailooCRM.DAL
                 .HasMany(w => w.Orders)
                 .WithOne(o => o.Waiter)
                 .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Department>()
+                .HasMany(d => d.Subcategories)
+                .WithOne(o => o.Department)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

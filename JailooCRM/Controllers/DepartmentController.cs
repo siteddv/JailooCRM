@@ -1,4 +1,6 @@
-﻿using JailooCRM.DAL;
+﻿using JailooCRM.BLL;
+using JailooCRM.DAL;
+using JailooCRM.DAL.Request;
 using JailooCRM.DAL.Response;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,25 +10,43 @@ namespace JailooCRM.Controllers
     [Route("[controller]")]
     public class DepartmentController : ControllerBase
     {
-        private readonly IRepository<Department, int> _departmentRepository;
+        private readonly IRepository<Department, int> _repository;
+        private readonly DepartmentService _service;
 
-        public DepartmentController(IRepository<Department, int> departmentRepository)
+        public DepartmentController(IRepository<Department, int> departmentRepository, DepartmentService service)
         {
-            _departmentRepository = departmentRepository;
+            _repository = departmentRepository;
+            _service = service;
         }
 
         [HttpPost]
         [Route("create")]
-        public async Task<DepartmentResponse> CreateDepartment([FromBody] string depName)
+        public async Task<DepartmentResponse> Create([FromBody] string depName)
         {
             Department department = new Department()
             {
                 Name = depName,
             };
 
-            department = await _departmentRepository.AddAsync(department);
+            department = await _repository.AddAsync(department);
 
             return new DepartmentResponse(200, null, true, department);
+        }
+
+        [HttpDelete]
+        [Route("deleteById")]
+        public async Task<Response> Delete(int id)
+        {
+            _repository.DeleteById(id);
+
+            return new Response(200, null, true);
+        }
+
+        [HttpPut]
+        [Route("update")]
+        public async Task<Response> Update(UpdateDepartmentRequest request)
+        {
+            return await _service.Update(request);
         }
     }
 }

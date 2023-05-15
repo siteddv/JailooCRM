@@ -54,6 +54,14 @@ namespace JailooCRM.DAL
             _context.SaveChanges();
         }
 
+        public void DeleteById(TKey id)
+        {
+            T entity = GetById(id);
+
+            _dbSet.Remove(entity);
+            _context.SaveChanges();
+        }
+
         public List<T> GetAll()
         {
             return _dbSet.ToList();
@@ -64,7 +72,9 @@ namespace JailooCRM.DAL
             T item = _dbSet
                 .FirstOrDefault(obj => obj.Id.Equals(id));
 
-            return item;
+            return item == null 
+                ? throw new ArgumentNullException(nameof(id), $"Entity not found by id {id}") 
+                : item;
         }
 
         private bool Find(T item, TKey id)
