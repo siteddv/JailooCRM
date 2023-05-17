@@ -1,13 +1,15 @@
-﻿namespace JailooCRM.DAL.Response
+﻿using JailooCRM.DAL.DTOs;
+
+namespace JailooCRM.DAL.Response
 {
-    public class DepartmentResponse : EntityResponse<int>
+    public class DepartmentResponse : Response
     {
         public DepartmentResponse(int statusCode, string message, bool isSuccess, Department department)
-            : base(department, statusCode, message, isSuccess)
+            : base(statusCode, message, isSuccess)
         {
-            Name = department.Name;
+            Department = new SingleDepartmentDto(department);
         }
 
-        public string Name { get; set; }
+        public SingleDepartmentDto Department { get; set; }
     }
 }

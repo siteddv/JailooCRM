@@ -1,19 +1,18 @@
 ﻿using JailooCRM.DAL.Common;
 
-namespace JailooCRM.DAL.Response
+namespace JailooCRM.DAL.DTOs
 {
-    public class EntityResponse<T> : Response
+    public class EntityDto<TKey>
     {
         private const string dateFormat = "dd/MM/yyyy HH:mm:ss zz";
-        public EntityResponse(BaseEntity<T> entity, int statusCode, string message, bool isSuccess) 
-            : base(statusCode, message, isSuccess)
+        public EntityDto(BaseEntity<TKey> entity)
         {
             Id = entity.Id;
             DateTimeAdded = entity.DateTimeAdded.ToString(dateFormat);
             DateTimeUpdated = entity.DateTimeUpdated.ToString(dateFormat);
         }
 
-        public T Id { get; set; }
+        public TKey Id { get; set; }
         public string DateTimeAdded { get; set; }
         public string DateTimeUpdated { get; set; }
     }

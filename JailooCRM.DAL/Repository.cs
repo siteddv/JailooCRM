@@ -48,21 +48,21 @@ namespace JailooCRM.DAL
             return result;
         }
 
-        public void Delete(T item)
+        public async Task Delete(T item)
         {
             _dbSet.Remove(item);
             _context.SaveChanges();
         }
 
-        public void DeleteById(TKey id)
+        public async Task DeleteById(TKey id)
         {
-            T entity = GetById(id);
+            T entity = await GetByIdAsync(id);
 
             _dbSet.Remove(entity);
             _context.SaveChanges();
         }
 
-        public async Task<List<T>> GetAll()
+        public async Task<List<T>> GetAllAsync()
         {
             return await _dbSet.ToListAsync();
         }
@@ -77,12 +77,7 @@ namespace JailooCRM.DAL
                 : item;
         }
 
-        private bool Find(T item, TKey id)
-        {
-            return item.Id.Equals(id);
-        }
-
-        public void Update(T item)
+        public async Task Update(T item)
         {
             item.DateTimeUpdated = DateTime.UtcNow;
 

@@ -1,14 +1,15 @@
 ﻿using JailooCRM.DAL.Common;
+using JailooCRM.DAL.DTOs;
 
 namespace JailooCRM.DAL.Response
 {
-    public class SubcategoryResponse : EntityResponse<int>
+    public class SubcategoryResponse : Response
     {
-        public SubcategoryResponse(Subcategory entity, int statusCode, string message, bool isSuccess) 
-            : base(entity, statusCode, message, isSuccess)
+        public SubcategoryResponse(int statusCode, string message, bool isSuccess, Subcategory subcategory)
+            : base(statusCode, message, isSuccess)
         {
-            Name = entity.Name;
-            Specialization = entity.Specialization;
+            Name = subcategory.Name;
+            Specialization = subcategory.Specialization;
         }
 
         public string Name { get; set; }

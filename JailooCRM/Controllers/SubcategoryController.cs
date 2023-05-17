@@ -29,7 +29,7 @@ namespace JailooCRM.Controllers
 
             subcategory = await _repository.AddAsync(subcategory);
             
-            return new SubcategoryResponse(subcategory, 200, null, true);
+            return new SubcategoryResponse(200, null, true, subcategory);
         }
 
         [HttpDelete]

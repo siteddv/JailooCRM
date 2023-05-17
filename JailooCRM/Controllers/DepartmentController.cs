@@ -51,17 +51,20 @@ namespace JailooCRM.Controllers
 
         [HttpGet]
         [Route("GetAll")]
-        public async Task<List<Department>> GetResponseAsync()
+        public async Task<ListDepartmentsResponse> GetAllAsync()
         {
-           return await _service.GetAll();
+            List<Department> departments = await _service.GetAll();
+
+            return new ListDepartmentsResponse(200, null, true, departments);
         }
 
         [HttpGet]
         [Route("GetById")]
-        public async Task<Department> GetById(int id)
+        public async Task<DepartmentResponse> GetById(int id)
         {
-            return await _service.GetByIdAsync(id);
+            Department department = await _service.GetByIdAsync(id);
+
+            return new DepartmentResponse(200, null, true, department);
         }
-        
     }
 }
