@@ -62,17 +62,17 @@ namespace JailooCRM.DAL
             _context.SaveChanges();
         }
 
-        public List<T> GetAll()
+        public async Task<List<T>> GetAll()
         {
-            return _dbSet.ToList();
+            return await _dbSet.ToListAsync();
         }
 
-        public T GetById(TKey id)
+        public async Task<T> GetByIdAsync(TKey id)
         {
-            T item = _dbSet
-                .FirstOrDefault(obj => obj.Id.Equals(id));
+            T item = await _dbSet
+                .FirstOrDefaultAsync(obj => obj.Id.Equals(id));
 
-            return item == null 
+            return  item == null 
                 ? throw new ArgumentNullException(nameof(id), $"Entity not found by id {id}") 
                 : item;
         }

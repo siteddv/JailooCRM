@@ -15,11 +15,20 @@ namespace JailooCRM.BLL
 
         public async Task<Response> Update(UpdateDepartmentRequest request)
         {
-            Department department = _repository.GetById(request.Id);
+            Department department = await _repository.GetByIdAsync(request.Id);
             department.Name = request.Name;
             _repository.Update(department);
 
             return new Response(200, null, true);
+        }
+        public async Task<List<Department>> GetAll()
+        {
+             return  await _repository.GetAllAsync();
+        }
+
+        public async Task<Department> GetByIdAsync(int id)
+        {
+            return await _repository.GetByIdAsync(id);
         }
     }
 }
