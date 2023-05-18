@@ -66,5 +66,13 @@ namespace JailooCRM.Controllers
 
             return new DepartmentResponse(200, null, true, department);
         }
+
+        [HttpPost]
+        [Route("Search")]
+        public async Task<ListDepartmentsResponse> Search (string name)
+        {
+            var result = await _service.Search(name);
+            return new ListDepartmentsResponse(200, "Success", true, result);
+        }
     }
 }

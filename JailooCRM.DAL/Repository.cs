@@ -19,6 +19,8 @@ namespace JailooCRM.DAL
                 throw new ArgumentNullException(nameof(DbSet<T>));
         }
 
+        
+
         public async Task<T> AddAsync(T item)
         {
             item.DateTimeAdded = DateTime.UtcNow;
@@ -84,6 +86,11 @@ namespace JailooCRM.DAL
             _dbSet.Update(item);
 
             _context.SaveChanges();
+        }
+
+        public IQueryable<T> GetQuery()
+        {
+            return _dbSet.AsQueryable();
         }
     }
 }

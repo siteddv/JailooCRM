@@ -11,5 +11,7 @@ namespace JailooCRM.DAL
         public Task Update(T item); // U
         public Task Delete(T item); // D
         public Task DeleteById(TKey id); // D
+
+        public IQueryable<T> GetQuery();
     }
 }

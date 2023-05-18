@@ -1,6 +1,8 @@
 ﻿using JailooCRM.DAL;
 using JailooCRM.DAL.Request;
 using JailooCRM.DAL.Response;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace JailooCRM.BLL
 {
@@ -29,6 +31,26 @@ namespace JailooCRM.BLL
         public async Task<Department> GetByIdAsync(int id)
         {
             return await _repository.GetByIdAsync(id);
+        }
+        
+        public async Task<List<Department>> Search (DepartmentFilterRequest request)
+        {
+            if (string.IsNullOrEmpty(request.Search))
+            {
+                throw new ArgumentNullException($"{nameof(request.Search)} not found!");
+            }
+
+
+
+            request.Search = request.Search.ToLower().Trim();
+            var res = await _repository.GetQuery()
+                .AsNoTracking()
+                .Where(obj => obj.Name.ToLower().Contains(request.Search))
+                .Skip((request.PageNumber - 1) * request.PageSize)
+                .Take(request.PageSize)
+                .ToListAsync();
+
+            return res;
         }
     }
 }

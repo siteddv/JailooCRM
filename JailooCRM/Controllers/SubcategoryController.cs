@@ -40,7 +40,6 @@ namespace JailooCRM.Controllers
 
             return new Response(200, null, true);
         }
-
-
+    
     }
 }
