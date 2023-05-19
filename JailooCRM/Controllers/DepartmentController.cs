@@ -50,15 +50,6 @@ namespace JailooCRM.Controllers
         }
 
         [HttpGet]
-        [Route("GetAll")]
-        public async Task<ListDepartmentsResponse> GetAllAsync()
-        {
-            List<Department> departments = await _service.GetAll();
-
-            return new ListDepartmentsResponse(200, null, true, departments);
-        }
-
-        [HttpGet]
         [Route("GetById")]
         public async Task<DepartmentResponse> GetById(int id)
         {
@@ -67,9 +58,9 @@ namespace JailooCRM.Controllers
             return new DepartmentResponse(200, null, true, department);
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("Search")]
-        public async Task<ListDepartmentsResponse> Search (DepartmentFilterRequest requst)
+        public async Task<ListDepartmentsResponse> Search([FromQuery] DepartmentFilterRequest? requst)
         {
             var result = await _service.Search(requst);
             return new ListDepartmentsResponse(200, "Success", true, result);

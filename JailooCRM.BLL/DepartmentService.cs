@@ -33,24 +33,28 @@ namespace JailooCRM.BLL
             return await _repository.GetByIdAsync(id);
         }
         
-        public async Task<List<Department>> Search (DepartmentFilterRequest request)
+        public async Task<List<Department>> Search(DepartmentFilterRequest request)
         {
-            if (string.IsNullOrEmpty(request.Search))
+            if (request == null || string.IsNullOrEmpty(request.Search))
             {
-                throw new ArgumentNullException($"{nameof(request.Search)} not found!");
+                return await GetAll();
             }
 
-
-
             request.Search = request.Search.ToLower().Trim();
-            var res = await _repository.GetQuery()
-                .AsNoTracking()
-                .Where(obj => obj.Name.ToLower().Contains(request.Search))
-                .Skip((request.PageNumber - 1) * request.PageSize)
-                .Take(request.PageSize)
-                .ToListAsync();
 
-            return res;
+            var baseResult = await _repository.GetQuery()
+                    .AsNoTracking()
+                    .Where(obj => obj.Name.ToLower().Contains(request.Search))
+                    .ToListAsync();
+
+            if (request.PageSize == null || request.PageNumber == null)
+            {
+                return baseResult;
+            }
+
+            return baseResult
+                .Skip((request.PageNumber.Value - 1) * request.PageSize.Value)
+                .Take(request.PageSize.Value).ToList();
         }
     }
 }
