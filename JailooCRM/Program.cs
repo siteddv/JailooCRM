@@ -3,6 +3,8 @@ using JailooCRM.BLL;
 using JailooCRM.DAL;
 using JailooCRM.DAL.Configs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -14,25 +16,24 @@ builder.Services.AddDbContext<PgContext>();
 builder.Services.AddTransient<IRepository<Department, int>, Repository<Department, int>>();
 builder.Services.AddTransient<IRepository<Subcategory, int>, Repository<Subcategory, int>>();
 builder.Services.AddTransient<DepartmentService>();
+builder.Services.AddTransient<AuthManager>();
 builder.Services.AddControllers();
+builder.Services.AddIdentity<User, Role>()
+    .AddEntityFrameworkStores<PgContext>()
+    .AddDefaultTokenProviders();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
 var config = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json")
     .Build();
-// -------------------------------------------------------------------------
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+
 var jwtsection = config.GetSection(nameof(JwtSettings));
 builder.Services.Configure<JwtSettings>(jwtsection);
 var jwtsettings = jwtsection.Get<JwtSettings>();
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -53,10 +54,19 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+var app = builder.Build();
+// -------------------------------------------------------------------------
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
 app.ConfigureExceptionHandler();
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

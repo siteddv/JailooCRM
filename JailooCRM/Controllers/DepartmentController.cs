@@ -2,6 +2,7 @@
 using JailooCRM.DAL;
 using JailooCRM.DAL.Request;
 using JailooCRM.DAL.Response;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JailooCRM.Controllers
@@ -51,6 +52,7 @@ namespace JailooCRM.Controllers
 
         [HttpGet]
         [Route("GetById")]
+        [Authorize]
         public async Task<DepartmentResponse> GetById(int id)
         {
             Department department = await _service.GetByIdAsync(id);
