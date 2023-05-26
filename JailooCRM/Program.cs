@@ -1,10 +1,10 @@
 using JailooCRM;
 using JailooCRM.BLL;
 using JailooCRM.DAL;
+using JailooCRM.DAL.Common;
 using JailooCRM.DAL.Configs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -15,12 +15,18 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<PgContext>();
 builder.Services.AddTransient<IRepository<Department, int>, Repository<Department, int>>();
 builder.Services.AddTransient<IRepository<Subcategory, int>, Repository<Subcategory, int>>();
+builder.Services.AddTransient<IRepository<Log, int>, Repository<Log, int>>();
 builder.Services.AddTransient<DepartmentService>();
 builder.Services.AddTransient<AuthManager>();
 builder.Services.AddControllers();
 builder.Services.AddIdentity<User, Role>()
     .AddEntityFrameworkStores<PgContext>()
     .AddDefaultTokenProviders();
+
+builder.Logging.AddDbLogger(options =>
+{
+    builder.Configuration.GetSection("Logging").GetSection("Database").GetSection("Options").Bind(options);
+});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

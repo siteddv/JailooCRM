@@ -3,6 +3,7 @@ using System;
 using JailooCRM.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace JailooCRM.DAL.Migrations
 {
     [DbContext(typeof(PgContext))]
-    partial class PgContextModelSnapshot : ModelSnapshot
+    [Migration("20230526140038_addLogs")]
+    partial class addLogs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -84,33 +86,12 @@ namespace JailooCRM.DAL.Migrations
                     b.Property<DateTime>("DateTimeUpdated")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int?>("EventId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("EventName")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ExceptionMessage")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ExceptionSource")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ExceptionStackTrace")
-                        .HasColumnType("text");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("LogLevel")
+                    b.Property<string>("Values")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<string>("Message")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("ThreadId")
-                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 

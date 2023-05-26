@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using JailooCRM.DAL.Common;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection.Metadata;
 
 namespace JailooCRM.DAL
@@ -17,6 +18,7 @@ namespace JailooCRM.DAL
         public DbSet<Product> Products { get; set; }
         public DbSet<Subcategory> Subcategories { get; set; }
         public DbSet<Waiter> Waiters { get; set; }
+        public DbSet<Log> Logs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

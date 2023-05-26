@@ -18,7 +18,6 @@ namespace JailooCRM.DAL
             if (_dbSet == default(DbSet<T>))
                 throw new ArgumentNullException(nameof(DbSet<T>));
         }
-
         
 
         public async Task<T> AddAsync(T item)
@@ -29,6 +28,18 @@ namespace JailooCRM.DAL
             T result = entity.Entity;
 
             await _context.SaveChangesAsync();
+
+            return result;
+        }
+
+        public T Add(T item)
+        {
+            item.DateTimeAdded = DateTime.UtcNow;
+            item.DateTimeUpdated = DateTime.UtcNow;
+            EntityEntry<T> entity = _dbSet.Add(item);
+            T result = entity.Entity;
+
+            _context.SaveChanges();
 
             return result;
         }

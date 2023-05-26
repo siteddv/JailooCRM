@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace JailooCRM
 {
-    public static class TSHuinyaExceptionHandler 
+    public static class ContainerExstensions 
     {
         public static void ConfigureExceptionHandler(this IApplicationBuilder app)
         {
@@ -28,6 +28,13 @@ namespace JailooCRM
                     }
                 });
             });
+        }
+
+        public static ILoggingBuilder AddDbLogger(this ILoggingBuilder builder, Action<DbLoggerOptions> configure)
+        {
+            builder.Services.AddSingleton<ILoggerProvider, DbLoggerProvider>();
+            builder.Services.Configure(configure);
+            return builder;
         }
     }
 }
