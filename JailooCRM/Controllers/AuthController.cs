@@ -1,4 +1,5 @@
 ﻿using JailooCRM.BLL;
+using JailooCRM.DAL.DTOs;
 using JailooCRM.DAL.Request;
 using JailooCRM.DAL.Response;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +22,13 @@ namespace JailooCRM.Controllers
         public async Task<LoginResponse> Login(LoginRequest request)
         {
             return await _authManager.LoginAsync(request);
+        }
+
+        [HttpPost]
+        [Route("RefreshToken")]
+        public async Task<LoginResponse> RefreshToken(TokenModel model)
+        {
+            return  await _authManager.CreateOrUpdateToken(model);
         }
     }
 }
