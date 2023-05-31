@@ -6,7 +6,7 @@ using System.Xml;
 
 namespace JailooCRM
 {
-    public class DbLogger : ILogger
+    public class DbLogger<T> : ILogger<T>
     {
         /// <summary>  
         /// Instance of <see cref="DbLoggerProvider" />.  
@@ -50,7 +50,7 @@ namespace JailooCRM
         /// <param name="formatter">A delegate that formats </param>  
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
-            if (!IsEnabled(logLevel))
+            if (!IsEnabled(logLevel) || _scopeFactory == null)
             {
                 // Don't log the entry if it's not enabled.  
                 return;

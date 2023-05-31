@@ -13,20 +13,17 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddDbContext<PgContext>();
-builder.Services.AddTransient<IRepository<Department, int>, Repository<Department, int>>();
-builder.Services.AddTransient<IRepository<Subcategory, int>, Repository<Subcategory, int>>();
-builder.Services.AddTransient<IRepository<Log, int>, Repository<Log, int>>();
-builder.Services.AddTransient<DepartmentService>();
+builder.Services.AddScoped<IRepository<Department, int>, Repository<Department, int>>();
+builder.Services.AddScoped<IRepository<Subcategory, int>, Repository<Subcategory, int>>();
+builder.Services.AddScoped<IRepository<Log, int>, Repository<Log, int>>();
+builder.Services.AddScoped<DepartmentService>();
 builder.Services.AddTransient<AuthManager>();
 builder.Services.AddControllers();
 builder.Services.AddIdentity<User, Role>()
     .AddEntityFrameworkStores<PgContext>()
     .AddDefaultTokenProviders();
 
-builder.Logging.AddDbLogger(options =>
-{
-    builder.Configuration.GetSection("Logging").GetSection("Database").GetSection("Options").Bind(options);
-});
+builder.Services.AddSingleton<ILoggerProvider, DbLoggerProvider>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

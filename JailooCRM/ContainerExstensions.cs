@@ -14,9 +14,15 @@ namespace JailooCRM
             {
                 appError.Run(async context =>
                 {
+                    var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
+
+                    using IServiceScope scopeService =  app.ApplicationServices.CreateScope();
+                    ILogger? logger = scopeService?.ServiceProvider?.GetService<ILogger>();
+                    logger?.LogError(contextFeature?.Error.Message);
+
                     context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     context.Response.ContentType = "application/json";
-                    var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
+                    
                     if (contextFeature != null)
                     {
                         await context.Response
@@ -28,13 +34,6 @@ namespace JailooCRM
                     }
                 });
             });
-        }
-
-        public static ILoggingBuilder AddDbLogger(this ILoggingBuilder builder, Action<DbLoggerOptions> configure)
-        {
-            builder.Services.AddSingleton<ILoggerProvider, DbLoggerProvider>();
-            builder.Services.Configure(configure);
-            return builder;
         }
     }
 }

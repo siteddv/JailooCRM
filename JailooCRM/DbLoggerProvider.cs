@@ -22,7 +22,7 @@ namespace JailooCRM
         /// <returns></returns>  
         public ILogger CreateLogger(string categoryName)
         {
-            return new DbLogger(this, _scopeFactory);
+            return new DbLogger<int>(this, _scopeFactory);
         }
 
         public void Dispose()

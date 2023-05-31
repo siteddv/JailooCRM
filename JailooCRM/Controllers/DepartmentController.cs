@@ -13,11 +13,15 @@ namespace JailooCRM.Controllers
     {
         private readonly IRepository<Department, int> _repository;
         private readonly DepartmentService _service;
+        private readonly ILogger _logger;
 
-        public DepartmentController(IRepository<Department, int> departmentRepository, DepartmentService service)
+        public DepartmentController(IRepository<Department, int> departmentRepository, 
+            DepartmentService service,
+            ILogger<DepartmentController> logger)
         {
             _repository = departmentRepository;
             _service = service;
+            _logger = logger;
         }
 
         [HttpPost]
@@ -52,9 +56,9 @@ namespace JailooCRM.Controllers
 
         [HttpGet]
         [Route("GetById")]
-        [Authorize]
         public async Task<DepartmentResponse> GetById(int id)
         {
+            _logger.LogError("Error occurred");
             Department department = await _service.GetByIdAsync(id);
 
             return new DepartmentResponse(200, null, true, department);
@@ -64,6 +68,7 @@ namespace JailooCRM.Controllers
         [Route("Search")]
         public async Task<ListDepartmentsResponse> Search([FromQuery] DepartmentFilterRequest? requst)
         {
+            _logger.LogInformation("Poshel nahui");
             var result = await _service.Search(requst);
             return new ListDepartmentsResponse(200, "Success", true, result);
         }
